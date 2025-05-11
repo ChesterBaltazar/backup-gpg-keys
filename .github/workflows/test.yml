@@ -38,10 +38,6 @@ jobs:
       # Checkout the repository
       - uses: actions/checkout@v4
 
-      # Install dependencies
-      - name: Install dependencies
-        run: choco install -y gnupg
-
       # Create dummy GPG Keys
       - name: Create dummy GPG keys
         run: |
@@ -67,3 +63,4 @@ jobs:
           rm ${{github.workspace}}\mykeyparams.txt
           gpg --with-colons --fingerprint "dummy" | Select-String '^fpr' | ForEach-Object { ($_ -split ':')[9] } | ForEach-Object { gpg --batch --yes --delete-secret-keys $_ }
           gpg --with-colons --fingerprint "dummy" | Select-String '^fpr' | ForEach-Object { ($_ -split ':')[9] } | ForEach-Object { gpg --batch --yes --delete-keys $_ }
+
